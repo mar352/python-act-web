@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Math Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Math Game</h1>
+        <p>Current Score: {{ score }}</p>
+        <p>Tries left: {{ tries_left }}</p>
+
+        <div class="math-problem">
+            <h2>{{ num1 }} {{ op }} {{ num2 }} = ?</h2>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('check_math') }}" method="post">
+            <input type="number" name="guess" placeholder="Enter your answer" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        <a href="{{ url_for('game_menu') }}" class="button">Back to Menu</a>
+    </div>
+</body>
+</html> 

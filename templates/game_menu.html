@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Game Center Menu</h1>
+        <p>Welcome, {{ player }}!</p>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="scores">
+            <h2>Your Scores:</h2>
+            <p>Number Game: {{ scores['number_game'][player] }}</p>
+            <p>Word Game: {{ scores['word_game'][player] }}</p>
+            <p>Math Game: {{ scores['math_game'][player] }}</p>
+        </div>
+        
+        <div class="menu">
+            <a href="{{ url_for('number_game') }}" class="button">1. Number Guessing Game</a>
+            <a href="{{ url_for('word_game') }}" class="button">2. Word Guessing Game</a>
+            <a href="{{ url_for('math_game') }}" class="button">3. Math Game</a>
+            <a href="{{ url_for('delete_scores') }}" class="button">Delete Scores</a>
+            <a href="{{ url_for('logout') }}" class="button">Logout</a>
+        </div>
+    </div>
+</body>
+</html> 
